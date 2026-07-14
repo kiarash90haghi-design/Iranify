@@ -127,7 +127,6 @@ button{
 .main-content{
     padding: 35px 35px 120px;
     flex: 1;
-    padding: 35px;
     background-color: var(--bg-primary);
 }
 
@@ -136,6 +135,48 @@ button{
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
+}
+
+.search-box{
+    width: 450px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 0 18px;
+
+    background-color: var(--bg-secondary);
+
+    border: 1px solid transparent;
+    border-radius: 30px;
+
+    transition: .3s ease;
+}
+
+.search-box i{
+    color: var(--text-secondary);
+}
+
+.search-box input{
+    flex: 1;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: var(--text-primary);
+
+    font-size: 1rem;
+}
+
+.search-box input::placeholder{
+    color: var(--text-muted);
+}
+
+.search-box:focus-within{
+    border-color: var(--primary-color);
 }
 
 .greeting h2{
@@ -219,27 +260,6 @@ button{
 
 .cover{
     border-radius: 10px;
-}
-
-
-.play-btn{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
-
-    flex-shrink: 0;
-
-    opacity: 0;
-    transform: translateX(10px);
-
-    transition: .3s ease;
 }
 
 .album-card:hover .play-btn{
