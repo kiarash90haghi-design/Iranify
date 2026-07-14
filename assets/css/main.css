@@ -1,0 +1,385 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Color's */
+
+:root{
+    /* Background */
+    --bg-primary: #121212;
+    --bg-secondary: #181818;
+    --bg-sidebar: #000000;
+    --bg-card: #202020;
+    --bg-hover: #2a2a2a;
+
+    /* Primary */
+    --primary-color: #1d41b9;
+    --primary-hover: #1ed760;
+
+    /* Text */
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --text-muted: #7a7a7a;
+
+    /* Border */
+    --border-color: #2f2f2f;
+
+    /* Player */
+    --player-bg: #181818;
+    --progress-bg: #535353;
+    --progress-fill: #1d70b9;
+
+    /* Button */
+    --button-bg: #282828;
+    --button-hover: #3e3e3e;
+
+    /* Shadow */
+    --shadow: rgba(0, 0, 0, 0.35);
+}
+
+/* General */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-primary);
+    color:  var(--text-primary);
+}
+
+.container{
+    display: flex;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+img{
+    display: block;
+    max-width: 100%;
+}
+
+button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+/* Side bar */
+
+.side-bar{
+    width: 260px;
+    min-height: 100vh;
+    background-color: var(--bg-sidebar);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo{
+    margin-bottom: 40px;
+}
+
+.logo h1{
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.sidebar-nav ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-nav a{
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    transition:
+        background-color .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+.sidebar-nav a:hover{
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.sidebar-nav i{
+    font-size: 20px;
+}
+
+/* Main content */
+
+.main-content{
+    padding: 35px 35px 120px;
+    flex: 1;
+    padding: 35px;
+    background-color: var(--bg-primary);
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.greeting h2{
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.greeting p{
+    color: var(--text-secondary);
+}
+
+.profile img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.albums h2{
+    margin-bottom: 25px;
+}
+
+.album-container{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 25px;
+}
+
+.album-card{
+    background-color: var(--bg-card);
+    padding: 16px;
+    border-radius: 16px;
+    cursor: pointer;
+    overflow: hidden;
+
+    transition:
+        background-color .3s ease,
+        transform .3s ease;
+}
+.album-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.album-card:hover{
+    background-color: var(--bg-hover);
+    transform: translateY(-6px);
+}
+
+.album-image{
+    position: relative;
+}
+
+.album-image img{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.play-btn{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--primary-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    opacity: 0;
+    transform: translateX(10px);
+
+    transition: .3s;
+}
+
+
+.cover{
+    border-radius: 10px;
+}
+
+
+.play-btn{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    flex-shrink: 0;
+
+    opacity: 0;
+    transform: translateX(10px);
+
+    transition: .3s ease;
+}
+
+.album-card:hover .play-btn{
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.album-info{
+    margin-top: 15px;
+}
+
+.album-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.album-header h3{
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.album-info p{
+    margin-top: 6px;
+    color: var(--text-secondary);
+    font-size: .9rem;
+}
+
+/* Footer Content */
+
+.player{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background-color: var(--player-bg);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+/* Player Left */
+
+.player-left{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.player-left img{
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.song-info p{
+    color: var(--text-secondary);
+    font-size: .9rem;
+}
+
+/* Plater Center */
+
+.player-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Player Button's */
+
+.player-controls{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.player-controls button{
+    background: transparent;
+    color: white;
+    font-size: 18px;
+}
+
+.play-main{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+
+    background: var(--primary-color) !important;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Player Process bar */
+
+.progress{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.progress-bar{
+    width: 400px;
+    height: 5px;
+
+    background: var(--progress-bg);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.progress-fill{
+    width: 35%;
+    height: 100%;
+
+    background: var(--progress-fill);
+}
+
+/* Plater Right */
+
+.player-right{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.player-right input{
+    width: 120px;
+}
