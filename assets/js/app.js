@@ -1,3 +1,6 @@
+let currentSongs = [];
+let currentSongsIndex = 0;
+
 fetch("https://itunes.apple.com/search?term=eminem&entity=song&limit=20")
     .then(response => response.json())
     .then(data => {
@@ -43,7 +46,6 @@ function renderAlbums(songs) {
         })
 
         albumContainer.appendChild(albumCard);
-
     });
 }
 
@@ -80,8 +82,6 @@ audio.addEventListener("error", (e) => {
 const playMain = document.getElementById("play-main");
 const playIcon = playMain.querySelector("i");
 
-let currentSongs = [];
-let currentSongIndex = 0;
 
 playMain.addEventListener("click", () => {
     if (audio.paused) {
@@ -103,3 +103,29 @@ audio.addEventListener("ended", () => {
     playIcon.classList.add("fa-play");
 });
 
+const nextBtn = document.getElementById("next-btn")
+const prevBtn = document.getElementById("prev-btn")
+
+nextBtn.addEventListener("click", () => {
+    if (currentSongIndex < currentSongs.length - 1) {
+        currentSongIndex++;
+    } else {
+        currentSongIndex = 0;
+    }
+
+    loadSong(currentSongs[currentSongIndex]);
+    audio.play();
+});
+
+prevBtn.addEventListener("click", () => {
+    if (currentSongIndex > 0) {
+        currentSongIndex--;
+    } else {
+        currentSongIndex = currentSongs.length - 1;
+    }
+
+    loadSong(currentSongs[currentSongIndex]);
+    audio.play();
+});
+
+// console.log(song.artworkUrl100);
