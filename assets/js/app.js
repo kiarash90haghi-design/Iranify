@@ -7,7 +7,8 @@ fetch("https://itunes.apple.com/search?term=eminem&entity=song&limit=20")
 const albumContainer = document.querySelector(".album-container");
 
 function renderAlbums(songs) {
-    songs.forEach(song => {
+    currentSongs = songs;
+    songs.forEach((song, index) => {
         const albumCard = document.createElement("div");
         albumCard.classList.add("album-card"); 
         
@@ -31,9 +32,14 @@ function renderAlbums(songs) {
 
         const playBtn = albumCard.querySelector(".play-btn");
 
+
         playBtn.addEventListener("click", () => {
+            currentSongIndex = index;
+
             loadSong(song);
             audio.play();
+            playIcon.classList.remove("fa-play");
+            playIcon.classList.add("fa-pause");
         })
 
         albumContainer.appendChild(albumCard);
@@ -45,7 +51,7 @@ const audio = document.getElementById("audio");
 
 const playerCover = document.querySelector(".player-left img");
 const playerTitle = document.querySelector(".song-info h4");
-const playerArtist = document.querySelector(".song-infop");
+const playerArtist = document.querySelector(".song-info p");
 
 function loadSong(song) {
     console.log(song.previewUrl);
@@ -71,54 +77,29 @@ audio.addEventListener("error", (e) => {
     console.log(e);
 });
 
-// function renderAlbums(){ 
-//     songs.forEach(song => {
-//         const albumCard = document.createElement("div");
-//         albumCard.classList.add("album-card");
+const playMain = document.getElementById("play-main");
+const playIcon = playMain.querySelector("i");
 
-//         albumCard.innerHTML = `
-//                 <div class="album-image">
-//                     <img src="${song.cover}" alt="${song.title}">
-//                 </div>
+let currentSongs = [];
+let currentSongIndex = 0;
 
-//                 <div class="album-info">
-//                     <div class="album-header">
-//                         <h3>${song.title}</h3>
+playMain.addEventListener("click", () => {
+    if (audio.paused) {
+        audio.play();
 
-//                         <button class="play-btn" data-id="${song.id}">
-//                             <i class="fa-solid fa-play"></i>
-//                         </button>
-//                     </div>
+        playIcon.classList.remove("fa-play");
+        playIcon.classList.add("fa-pause");
 
-//                     <p>${song.artist}</p>
-//                 </div>
-//             `;
+    } else {
+        audio.pause();
 
-//             albumContainer.appendChild(albumCard);
-//         })
+        playIcon.classList.remove("fa-pause");
+        playIcon.classList.add("fa-play");
+    }
+});
 
-//         const playBtn = albumCard.querySelector(".play-btn");
+audio.addEventListener("ended", () => {
+    playIcon.classList.remove("fa-pause");
+    playIcon.classList.add("fa-play");
+});
 
-//         playBtn.addEventListener("click", () => {
-//             loadSong(song);
-//             audio.play();
-//         });
-
-//         albumContainer.appendChild(albumCard);
-// }
-
-// renderAlbums();
-
-
-// const audio = document.getElementById("audio");
-
-// const playerCover = document.querySelector(".player-left img");
-// const playerTitle = document.querySelector(".song-info h4");
-// const playerArtist = document.querySelector(".song-info p");
-
-// function loadSong(song){
-//     playerCover.src = song.cover;
-//     playerTitle.textContent = song.title;
-//     playerArtist.textContent = song.artist;
-//     audio.src = song.audio;
-// }
