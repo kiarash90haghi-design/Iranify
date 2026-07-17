@@ -1,7 +1,8 @@
 import { fetchSongs } from "./api.js";
 
 import {
-    albumContainer
+    albumContainer,
+    searchInput
 } from "./elements.js";
 
 import {
@@ -24,6 +25,13 @@ async function init(){
 
 init();
 
+async function searchSongs(term){
+    const songs = await fetchSongs(term);
+    setSongs(songs);
+    albumContainer.innerHTML = "";
+
+    renderAlbums(songs)
+}
 
 
 function renderAlbums(songs){
@@ -74,7 +82,7 @@ function renderAlbums(songs){
 
 
         playBtn.addEventListener("click",()=>{
-            
+
             loadSong(song);
 
             playSong();
@@ -88,3 +96,14 @@ function renderAlbums(songs){
     });
 
 }
+
+searchInput.addEventListener("keydown", (event) => {
+    
+    if (event.key !== "Enter") return;
+    const term = searchInput.value.trim();
+
+    if (!term) return;
+    searchSongs(term);
+    
+    searchInput.value = "";
+});

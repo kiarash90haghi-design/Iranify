@@ -13,3 +13,5 @@ export const playMain = document.getElementById("play-main");
 export const nextBtn = document.getElementById("next-btn");
 
 export const prevBtn = document.getElementById("prev-btn");
+
+export const searchInput = document.getElementById("searchBox")
