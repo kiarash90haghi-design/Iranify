@@ -9,8 +9,12 @@ import {
     progressBar,
     progressFill,
     currentTime,
-    durationTime
+    durationTime,
+    volumeSlider,
+    volumeIcon
 } from "./elements.js";
+
+audio.volume = 1;
 
 
 const playIcon = playMain.querySelector("i");
@@ -111,5 +115,11 @@ progressBar.addEventListener("click", (event) => {
 
 
     audio.currentTime = (clickX / width) * duration;
+
+});
+
+volumeSlider.addEventListener("input", () => {
+    
+    audio.volume = volumeSlider.value;
 
 });

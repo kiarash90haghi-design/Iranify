@@ -27,3 +27,9 @@ export const progressFill = document.querySelector(".progress-fill");
 export const currentTime = document.getElementById("current-time");
 
 export const durationTime = document.getElementById("duration-time");
+
+// volume controll
+
+export const volumeSlider = document.getElementById("volume-slider");
+
+export const volumeIcon = document.getElementById("volume-icon");
