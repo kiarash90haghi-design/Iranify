@@ -24,6 +24,6 @@ export const progressBar = document.querySelector(".progress-bar");
 
 export const progressFill = document.querySelector(".progress-fill");
 
-export const currentTime = document.querySelector(".progress span:first-child");
+export const currentTime = document.getElementById("current-time");
 
-export const durationTime = document.querySelector(".progress span:last-child");
+export const durationTime = document.getElementById("duration-time");

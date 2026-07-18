@@ -396,6 +396,7 @@ button{
 .progress-fill{
     width: 35%;
     height: 100%;
+    transition: width .1s linear;
 
     background: var(--progress-fill);
 }

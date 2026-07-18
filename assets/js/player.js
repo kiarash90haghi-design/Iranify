@@ -16,55 +16,41 @@ import {
 const playIcon = playMain.querySelector("i");
 
 
-let currentSongs = [];
-let currentSongIndex = 0;
-
-
-
-export function setSongs(songs){
-
-    currentSongs = songs;
-
-}
-
-
 
 export function loadSong(song){
 
     playerCover.src = song.artworkUrl100;
 
     playerTitle.textContent = song.trackName;
-
     playerArtist.textContent = song.artistName;
 
     audio.src = song.previewUrl;
+
+
+    // reset progress
+    progressFill.style.width = "0%";
+    currentTime.textContent = "0:00";
 
 }
 
 
 
 export function playSong(){
-
     audio.play();
 
     playIcon.classList.remove("fa-play");
-
     playIcon.classList.add("fa-pause");
 
 }
 
 
-
 export function pauseSong(){
-
     audio.pause();
 
     playIcon.classList.remove("fa-pause");
-
     playIcon.classList.add("fa-play");
 
 }
-
 
 
 playMain.addEventListener("click",()=>{
@@ -73,7 +59,9 @@ playMain.addEventListener("click",()=>{
 
         playSong();
 
-    }else{
+    }
+    
+    else{
 
         pauseSong();
 
@@ -83,56 +71,9 @@ playMain.addEventListener("click",()=>{
 
 
 
-nextBtn.addEventListener("click",()=>{
-
-
-    if(currentSongIndex < currentSongs.length - 1){
-
-        currentSongIndex++;
-
-    }else{
-
-        currentSongIndex = 0;
-
-    }
-
-
-    loadSong(currentSongs[currentSongIndex]);
-
-    playSong();
-
-
-});
-
-
-
-
-prevBtn.addEventListener("click",()=>{
-
-
-    if(currentSongIndex > 0){
-
-        currentSongIndex--;
-
-    }else{
-
-        currentSongIndex = currentSongs.length - 1;
-
-    }
-
-
-    loadSong(currentSongs[currentSongIndex]);
-
-    playSong();
-
-
-});
-
-
-
 audio.addEventListener("ended",()=>{
 
-    pauseSong();
+    document.dispatchEvent(new Event("songEnded"))
 
 });
 
@@ -144,17 +85,18 @@ function formatTime(seconds){
 }
 
 audio.addEventListener("loadedmetadata", () => {
-
+        
     durationTime.textContent = formatTime(audio.duration);
 
 });
 
 audio.addEventListener("timeupdate", () => {
+    if(!audio.duration) return;
 
-    const progressPercent = (audio.currentTime / audio.duration) * 100;
+    const progressPercent = 
+        (audio.currentTime / audio.duration) * 100;
 
     progressFill.style.width = `${progressPercent}%`;
-
     currentTime.textContent = formatTime(audio.currentTime);
 
 });

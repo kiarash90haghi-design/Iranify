@@ -2,14 +2,18 @@ import { fetchSongs } from "./api.js";
 
 import {
     albumContainer,
-    searchInput
+    searchInput,
+    nextBtn,
+    prevBtn
 } from "./elements.js";
 
 import {
     loadSong,
-    playSong,
-    setSongs
+    playSong
 } from "./player.js";
+
+let currentSongs = [];
+let currentSongIndex = 0;
 
 
 
@@ -17,7 +21,7 @@ async function init(){
 
     const songs = await fetchSongs("eminem");
 
-    setSongs(songs);
+    currentSongs = songs;
 
     renderAlbums(songs);
 
@@ -26,8 +30,11 @@ async function init(){
 init();
 
 async function searchSongs(term){
+
     const songs = await fetchSongs(term);
-    setSongs(songs);
+    
+    currentSongs = songs;
+    
     albumContainer.innerHTML = "";
 
     renderAlbums(songs)
@@ -81,7 +88,9 @@ function renderAlbums(songs){
         const playBtn = albumCard.querySelector(".play-btn");
 
 
-        playBtn.addEventListener("click",()=>{
+        playBtn.addEventListener("click", () => {
+
+            currentSongIndex = index;
 
             loadSong(song);
 
@@ -107,3 +116,35 @@ searchInput.addEventListener("keydown", (event) => {
     
     searchInput.value = "";
 });
+
+document.addEventListener("songEnded", nextSong);
+
+function nextSong() {
+
+    if (currentSongIndex < currentSongs.length - 1) {
+        currentSongIndex++;
+    } else {
+        currentSongIndex = 0;
+    }
+
+    loadSong(currentSongs[currentSongIndex]);
+    playSong();
+
+}
+
+function prevSong() {
+
+    if (currentSongIndex > 0) {
+        currentSongIndex--;
+    } else {
+        currentSongIndex = currentSongs.length - 1;
+    }
+
+    loadSong(currentSongs[currentSongIndex]);
+    playSong();
+
+}
+
+nextBtn.addEventListener("click", nextSong);
+
+prevBtn.addEventListener("click", prevSong);
