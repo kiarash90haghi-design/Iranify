@@ -5,7 +5,11 @@ import {
     playerArtist,
     playMain,
     nextBtn,
-    prevBtn
+    prevBtn,
+    progressBar,
+    progressFill,
+    currentTime,
+    durationTime
 } from "./elements.js";
 
 
@@ -129,5 +133,41 @@ prevBtn.addEventListener("click",()=>{
 audio.addEventListener("ended",()=>{
 
     pauseSong();
+
+});
+
+function formatTime(seconds){
+    const minutes = Math.floor(seconds / 60);
+    const secs  = Math.floor(seconds % 60);
+
+    return `${minutes}: ${secs.toString().padStart(2, "0")}`
+}
+
+audio.addEventListener("loadedmetadata", () => {
+
+    durationTime.textContent = formatTime(audio.duration);
+
+});
+
+audio.addEventListener("timeupdate", () => {
+
+    const progressPercent = (audio.currentTime / audio.duration) * 100;
+
+    progressFill.style.width = `${progressPercent}%`;
+
+    currentTime.textContent = formatTime(audio.currentTime);
+
+});
+
+progressBar.addEventListener("click", (event) => {
+
+    const width = progressBar.clientWidth;
+
+    const clickX = event.offsetX;
+
+    const duration = audio.duration;
+
+
+    audio.currentTime = (clickX / width) * duration;
 
 });

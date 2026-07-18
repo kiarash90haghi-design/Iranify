@@ -14,4 +14,16 @@ export const nextBtn = document.getElementById("next-btn");
 
 export const prevBtn = document.getElementById("prev-btn");
 
+// search
+
 export const searchInput = document.getElementById("searchBox")
+
+// porgress bar
+
+export const progressBar = document.querySelector(".progress-bar");
+
+export const progressFill = document.querySelector(".progress-fill");
+
+export const currentTime = document.querySelector(".progress span:first-child");
+
+export const durationTime = document.querySelector(".progress span:last-child");
