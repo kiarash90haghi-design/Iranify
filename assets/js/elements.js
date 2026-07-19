@@ -33,3 +33,7 @@ export const durationTime = document.getElementById("duration-time");
 export const volumeSlider = document.getElementById("volume-slider");
 
 export const volumeIcon = document.getElementById("volume-icon");
+
+// shuffle
+
+export const shuffleBtn = document.getElementById("shuffle-btn");

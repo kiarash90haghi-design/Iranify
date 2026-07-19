@@ -12,7 +12,7 @@
     --bg-hover: #2a2a2a;
 
     /* Primary */
-    --primary-color: #1d41b9;
+    --primary-color: #1444e2;
     --primary-hover: #1ed760;
 
     /* Text */
@@ -411,4 +411,10 @@ button{
 
 .player-right input{
     width: 120px;
+}
+
+/* suffle */
+
+#shuffle-btn.active{
+    color: var(--primary-color);
 }

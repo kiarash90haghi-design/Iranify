@@ -4,7 +4,8 @@ import {
     albumContainer,
     searchInput,
     nextBtn,
-    prevBtn
+    prevBtn,
+    shuffleBtn
 } from "./elements.js";
 
 import {
@@ -14,6 +15,8 @@ import {
 
 let currentSongs = [];
 let currentSongIndex = 0;
+
+let isShuffle = false;
 
 
 
@@ -121,10 +124,24 @@ document.addEventListener("songEnded", nextSong);
 
 function nextSong() {
 
-    if (currentSongIndex < currentSongs.length - 1) {
-        currentSongIndex++;
+    if (isShuffle) {
+
+        let randomIndex;
+
+        do {
+            randomIndex = Math.floor(Math.random() * currentSongs.length);
+        } while (randomIndex === currentSongIndex);
+
+        currentSongIndex = randomIndex;
+
     } else {
-        currentSongIndex = 0;
+
+        if (currentSongIndex < currentSongs.length - 1) {
+            currentSongIndex++;
+        } else {
+            currentSongIndex = 0;
+        }
+
     }
 
     loadSong(currentSongs[currentSongIndex]);
@@ -148,3 +165,14 @@ function prevSong() {
 nextBtn.addEventListener("click", nextSong);
 
 prevBtn.addEventListener("click", prevSong);
+
+// shuffle
+
+
+shuffleBtn.addEventListener("click", () => {
+
+    isShuffle = !isShuffle;
+
+    shuffleBtn.classList.toggle("active");
+
+});
