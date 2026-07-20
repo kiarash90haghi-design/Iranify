@@ -34,6 +34,9 @@
 
     /* Shadow */
     --shadow: rgba(0, 0, 0, 0.35);
+
+    /* Add favorite */
+    --like-color: #ea1313;
 }
 
 /* General */
@@ -423,4 +426,18 @@ button{
 
 #repeat-btn.active {
     color: var(--primary-color);
+}
+
+/* favorite btn */
+
+.favorite-btn {
+    background: transparent;
+    border: none;
+    color: #b3b3b3;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.favorite-btn.active {
+    color: var(--like-color);
 }

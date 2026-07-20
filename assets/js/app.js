@@ -24,6 +24,9 @@ let isShuffle = false;
 // is repeat?
 let isRepeat = false;
 
+// is favorite?
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
 
 async function init(){
 
@@ -63,6 +66,10 @@ function renderAlbums(songs){
 
             <div class="album-image">
 
+            ‍   <button class="favorite-btn">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+
                 <img src="${song.artworkUrl100}">
 
             </div>
@@ -94,6 +101,60 @@ function renderAlbums(songs){
 
 
         const playBtn = albumCard.querySelector(".play-btn");
+        const favoriteBtn = albumCard.querySelector(".favorite-btn");
+
+        const isFavorite = favorites.some(
+            fav => fav.trackId === song.trackId
+        );
+
+
+        if(isFavorite){
+
+            favoriteBtn.classList.add("active");
+
+            const icon = favoriteBtn.querySelector("i");
+
+            icon.classList.remove("fa-regular");
+            icon.classList.add("fa-solid");
+
+        }
+
+        favoriteBtn.addEventListener("click", () => {
+
+            const index = favorites.findIndex(
+                fav => fav.trackId === song.trackId
+            );
+
+            if(index === -1){
+
+                favorites.push(song);
+
+                favoriteBtn.classList.add("active");
+
+                favoriteBtn.querySelector("i").classList.replace(
+                    "fa-regular",
+                    "fa-solid"
+                );
+
+            }else{
+
+                favorites.splice(index,1);
+
+                favoriteBtn.classList.remove("active");
+
+                favoriteBtn.querySelector("i").classList.replace(
+                    "fa-solid",
+                    "fa-regular"
+                );
+
+            }
+
+            localStorage.setItem(
+                "favorites",
+                JSON.stringify(favorites)
+            );
+
+        });
 
 
         playBtn.addEventListener("click", () => {
