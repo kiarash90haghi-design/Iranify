@@ -6,7 +6,9 @@ import {
     nextBtn,
     prevBtn,
     shuffleBtn,
-    repeatBtn
+    repeatBtn,
+    favoritesLink,
+    homeLink
 } from "./elements.js";
 
 import {
@@ -17,6 +19,8 @@ import {
 
 let currentSongs = [];
 let currentSongIndex = 0;
+let homeSongs = [];
+
 
 // is sufell?
 let isShuffle = false;
@@ -34,6 +38,8 @@ async function init(){
 
     currentSongs = songs;
 
+    homeSongs = songs;
+
     renderAlbums(songs);
 
 }
@@ -45,10 +51,13 @@ async function searchSongs(term){
     const songs = await fetchSongs(term);
     
     currentSongs = songs;
+
+    homeSongs = songs;
     
     albumContainer.innerHTML = "";
 
-    renderAlbums(songs)
+    renderAlbums(songs);
+
 }
 
 
@@ -175,6 +184,33 @@ function renderAlbums(songs){
 
 }
 
+function renderFavorites(){
+
+    albumContainer.innerHTML = "";
+
+    currentSongs = favorites;
+
+    if(favorites.length === 0){
+
+        albumContainer.innerHTML = `
+            <h2>No Favorites Yet ❤️</h2>
+        `;
+
+        return;
+    }
+
+    renderAlbums(favorites);
+
+}
+
+function renderHome(){
+
+    albumContainer.innerHTML = "";
+
+    renderAlbums(homeSongs);
+
+}
+
 searchInput.addEventListener("keydown", (event) => {
     
     if (event.key !== "Enter") return;
@@ -261,5 +297,25 @@ repeatBtn.addEventListener("click", () => {
     repeatBtn.classList.toggle("active");
     
     console.log("Repeat:", isRepeat);
+
+});
+
+// favorite page
+
+favoritesLink.addEventListener("click", (event)=>{
+
+    event.preventDefault();
+
+    renderFavorites();
+
+});
+
+// home page 
+
+homeLink.addEventListener("click", (event)=>{
+
+    event.preventDefault();
+
+    renderHome();
 
 });

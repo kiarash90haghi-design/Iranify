@@ -41,3 +41,11 @@ export const shuffleBtn = document.getElementById("shuffle-btn");
 // repeat
 
 export const repeatBtn = document.getElementById("repeat-btn");
+
+// favorite page
+
+export const favoritesLink = document.getElementById("favorites-link")
+
+// home page
+
+export const homeLink = document.getElementById("home-link")
