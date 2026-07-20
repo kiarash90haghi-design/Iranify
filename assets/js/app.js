@@ -5,19 +5,24 @@ import {
     searchInput,
     nextBtn,
     prevBtn,
-    shuffleBtn
+    shuffleBtn,
+    repeatBtn
 } from "./elements.js";
 
 import {
     loadSong,
-    playSong
+    playSong,
+    replaySong
 } from "./player.js";
 
 let currentSongs = [];
 let currentSongIndex = 0;
 
+// is sufell?
 let isShuffle = false;
 
+// is repeat?
+let isRepeat = false;
 
 
 async function init(){
@@ -120,7 +125,16 @@ searchInput.addEventListener("keydown", (event) => {
     searchInput.value = "";
 });
 
-document.addEventListener("songEnded", nextSong);
+document.addEventListener("songEnded", () => {
+
+    if (isRepeat) {
+        replaySong();
+    }
+    
+    else {
+        nextSong();
+    }
+});
 
 function nextSong() {
 
@@ -174,5 +188,17 @@ shuffleBtn.addEventListener("click", () => {
     isShuffle = !isShuffle;
 
     shuffleBtn.classList.toggle("active");
+
+});
+
+// repeat
+
+repeatBtn.addEventListener("click", () => {
+    
+    isRepeat = !isRepeat;
+    
+    repeatBtn.classList.toggle("active");
+    
+    console.log("Repeat:", isRepeat);
 
 });

@@ -37,3 +37,7 @@ export const volumeIcon = document.getElementById("volume-icon");
 // shuffle
 
 export const shuffleBtn = document.getElementById("shuffle-btn");
+
+// repeat
+
+export const repeatBtn = document.getElementById("repeat-btn");

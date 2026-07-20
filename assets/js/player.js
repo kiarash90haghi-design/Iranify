@@ -47,6 +47,13 @@ export function playSong(){
 
 }
 
+export function replaySong(){
+
+    audio.currentTime = 0;
+
+    audio.play();
+
+}
 
 export function pauseSong(){
     audio.pause();

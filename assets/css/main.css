@@ -13,7 +13,7 @@
 
     /* Primary */
     --primary-color: #1444e2;
-    --primary-hover: #1ed760;
+    --primary-hover: #1e43d7;
 
     /* Text */
     --text-primary: #ffffff;
@@ -416,5 +416,11 @@ button{
 /* suffle */
 
 #shuffle-btn.active{
+    color: var(--primary-color);
+}
+
+/* repeat btn */
+
+#repeat-btn.active {
     color: var(--primary-color);
 }
