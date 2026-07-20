@@ -129,6 +129,15 @@ button{
     color: var(--text-primary);
 }
 
+.sidebar-nav a.active {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.sidebar-nav a.active i {
+    color: var(--primary-color);
+}
+
 .sidebar-nav i{
     font-size: 20px;
 }

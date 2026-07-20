@@ -31,8 +31,29 @@ let isRepeat = false;
 // is favorite?
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
+function setActivePage(page){
+
+    homeLink.classList.remove("active");
+    favoritesLink.classList.remove("active");
+
+    page.classList.add("active");
+
+}
+
 
 async function init(){
+
+    homeLink.classList.add("active");
+
+    favoritesLink.classList.remove("active");
+
+    function setActivePage(page){
+
+        homeLink.classList.remove("active");
+        favoritesLink.classList.remove("active");
+
+        page.classList.add("active");
+    }
 
     const songs = await fetchSongs("eminem");
 
@@ -41,6 +62,8 @@ async function init(){
     homeSongs = songs;
 
     renderAlbums(songs);
+
+    setActivePage(homeLink);
 
 }
 
@@ -300,22 +323,22 @@ repeatBtn.addEventListener("click", () => {
 
 });
 
-// favorite page
-
-favoritesLink.addEventListener("click", (event)=>{
-
-    event.preventDefault();
-
-    renderFavorites();
-
-});
-
 // home page 
 
-homeLink.addEventListener("click", (event)=>{
-
+homeLink.addEventListener("click", (event) => {
     event.preventDefault();
 
-    renderHome();
+    setActivePage(homeLink);
 
+    renderHome();
+});
+
+// favorite link
+
+favoritesLink.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    setActivePage(favoritesLink);
+
+    renderFavorites();
 });
