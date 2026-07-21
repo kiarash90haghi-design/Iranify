@@ -46,7 +46,12 @@ function renderPlaylists() {
 
         li.innerHTML = `
             <i class="fa-solid fa-music"></i>
+
             <span>${playlist.name}</span>
+
+            <button class="delete-playlist-btn">
+                <i class="fa-solid fa-trash" id="trash-btn"></i>
+            </button>
         `;
 
         li.addEventListener("click", () => {
@@ -56,6 +61,18 @@ function renderPlaylists() {
         });
 
         playlistList.appendChild(li);
+
+        const deleteBtn = li.querySelector(".delete-playlist-btn");
+
+
+        deleteBtn.addEventListener("click", (event)=>{
+
+            event.stopPropagation();
+
+
+            deletePlaylist(playlist.id);
+
+        });
 
     });
 
@@ -137,5 +154,24 @@ export function addSongToPlaylist(playlistId, song) {
         "playlists",
         JSON.stringify(playlists)
     );
+
+}
+
+// delete playlist
+
+function deletePlaylist(id){
+
+    playlists = playlists.filter(
+        playlist => playlist.id !== id
+    );
+
+
+    localStorage.setItem(
+        "playlists",
+        JSON.stringify(playlists)
+    );
+
+
+    renderPlaylists();
 
 }

@@ -798,3 +798,41 @@ button{
     background:var(--bg-hover);
 
 }
+
+/* delete play list */
+
+.playlist-item{
+    position: relative;
+}
+
+
+.delete-playlist-btn{
+
+    margin-left: auto;
+
+    background: transparent;
+
+    color: var(--text-primary);
+
+    opacity: 0;
+
+    transition: .2s;
+
+}
+
+#trash-btn{
+    color: var(--like-color);
+}
+
+
+.playlist-item:hover .delete-playlist-btn{
+
+    opacity: 1;
+
+}
+
+
+.delete-playlist-btn:hover{
+
+    color: #ff3333;
+}
