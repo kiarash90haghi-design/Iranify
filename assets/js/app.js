@@ -17,6 +17,8 @@ import {
     replaySong
 } from "./player.js";
 
+import "./playlist.js";
+
 let currentSongs = [];
 let currentSongIndex = 0;
 let homeSongs = [];
@@ -341,4 +343,27 @@ favoritesLink.addEventListener("click", (event) => {
     setActivePage(favoritesLink);
 
     renderFavorites();
+});
+
+// play list 
+
+document.addEventListener("playlistSelected", (event) => {
+
+    const playlist = event.detail;
+
+    currentSongs = playlist.songs;
+
+    albumContainer.innerHTML = "";
+
+    if (playlist.songs.length === 0) {
+
+        albumContainer.innerHTML = `
+            <h2>This playlist is empty 🎵</h2>
+        `;
+
+        return;
+    }
+
+    renderAlbums(playlist.songs);
+
 });

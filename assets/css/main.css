@@ -511,3 +511,109 @@ button{
     background: #2d2d2d;
     color: white;
 }
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    color: var(--text-secondary);
+
+    transition: .25s;
+}
+
+.playlist-item:hover {
+    background: var(--bg-hover);
+    color: white;
+    transform: translateX(4px);
+}
+
+.playlist-item:hover i {
+    color: var(--primary-color);
+}
+
+/* modal play list */
+
+.playlist-modal{
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(6px);
+
+    z-index: 1000;
+}
+
+.playlist-modal.show{
+    display: flex;
+}
+
+.playlist-modal-content{
+
+    width: 400px;
+    max-width: 90%;
+
+    background: #181818;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.playlist-modal-content h2{
+
+    color: white;
+
+    font-size: 24px;
+
+}
+
+#playlist-name{
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    background: #2b2b2b;
+    color: white;
+    font-size: 16px;
+}
+
+.playlist-modal-buttons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+#cancel-playlist{
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #2d2d2d;
+    color: white;
+    cursor: pointer;
+}
+
+#save-playlist{
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #1db954;
+    color: white;
+    cursor: pointer;
+}

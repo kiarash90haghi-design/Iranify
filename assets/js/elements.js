@@ -49,3 +49,17 @@ export const favoritesLink = document.getElementById("favorites-link")
 // home page
 
 export const homeLink = document.getElementById("home-link")
+
+// play list
+
+export const createPlaylistBtn = document.getElementById("create-playlist-btn");
+
+export const playlistModal = document.getElementById("playlist-modal");
+
+export const playlistNameInput = document.getElementById("playlist-name");
+
+export const savePlaylistBtn = document.getElementById("save-playlist");
+
+export const cancelPlaylistBtn = document.getElementById("cancel-playlist");
+
+export const playlistList = document.getElementById("playlist-list");
