@@ -18,6 +18,7 @@ import {
 } from "./player.js";
 
 import "./playlist.js";
+import { getPlaylists, addSongToPlaylist } from "./playlist.js";
 
 let currentSongs = [];
 let currentSongIndex = 0;
@@ -100,8 +101,12 @@ function renderAlbums(songs){
 
             <div class="album-image">
 
-            ‍   <button class="favorite-btn">
+                <button class="favorite-btn">
                     <i class="fa-regular fa-heart"></i>
+                </button>
+
+                <button class="more-btn">
+                    <i class="fa-solid fa-ellipsis"></i>
                 </button>
 
                 <img src="${song.artworkUrl100}">
@@ -115,13 +120,15 @@ function renderAlbums(songs){
 
                     <h3>${song.trackName}</h3>
 
+                    <div class="album-actions">
 
-                    <button class="play-btn">
 
-                        <i class="fa-solid fa-play"></i>
 
-                    </button>
+                        <button class="play-btn">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
 
+                    </div>
 
                 </div>
 
@@ -136,6 +143,16 @@ function renderAlbums(songs){
 
         const playBtn = albumCard.querySelector(".play-btn");
         const favoriteBtn = albumCard.querySelector(".favorite-btn");
+
+        const moreBtn = albumCard.querySelector(".more-btn");
+
+        moreBtn.addEventListener("click", (e) => {
+
+            e.stopPropagation();
+
+            console.log(song.trackName);
+
+        });
 
         const isFavorite = favorites.some(
             fav => fav.trackId === song.trackId
@@ -206,6 +223,12 @@ function renderAlbums(songs){
 
 
     });
+
+    moreBtn.addEventListener("click", () => {
+
+    console.log(song.trackName);
+
+});
 
 }
 

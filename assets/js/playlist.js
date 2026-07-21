@@ -114,3 +114,28 @@ function openPlaylist(playlist){
     );
 
 }
+
+export function getPlaylists() {
+    return playlists;
+}
+
+export function addSongToPlaylist(playlistId, song) {
+
+    const playlist = playlists.find(p => p.id === playlistId);
+
+    if (!playlist) return;
+
+    const alreadyExists = playlist.songs.some(
+        s => s.trackId === song.trackId
+    );
+
+    if (alreadyExists) return;
+
+    playlist.songs.push(song);
+
+    localStorage.setItem(
+        "playlists",
+        JSON.stringify(playlists)
+    );
+
+}
