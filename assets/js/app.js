@@ -8,7 +8,9 @@ import {
     shuffleBtn,
     repeatBtn,
     favoritesLink,
-    homeLink
+    homeLink,
+    songMenu,
+    playlistOptions
 } from "./elements.js";
 
 import {
@@ -24,6 +26,8 @@ let currentSongs = [];
 let currentSongIndex = 0;
 let homeSongs = [];
 
+let selectedSong = null;
+
 
 // is sufell?
 let isShuffle = false;
@@ -34,14 +38,7 @@ let isRepeat = false;
 // is favorite?
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-function setActivePage(page){
 
-    homeLink.classList.remove("active");
-    favoritesLink.classList.remove("active");
-
-    page.classList.add("active");
-
-}
 
 
 async function init(){
@@ -146,13 +143,17 @@ function renderAlbums(songs){
 
         const moreBtn = albumCard.querySelector(".more-btn");
 
-        moreBtn.addEventListener("click", (e) => {
+moreBtn.addEventListener("click", (event) => {
+    selectedSong = song;
 
-            e.stopPropagation();
+    songMenu.classList.add("show");
 
-            console.log(song.trackName);
+    songMenu.style.left = `${event.clientX}px`;
+    songMenu.style.top = `${event.clientY}px`;
 
-        });
+    renderPlaylistOptions();
+
+});
 
         const isFavorite = favorites.some(
             fav => fav.trackId === song.trackId
@@ -224,13 +225,69 @@ function renderAlbums(songs){
 
     });
 
-    moreBtn.addEventListener("click", () => {
-
-    console.log(song.trackName);
-
-});
 
 }
+
+function renderPlaylistOptions() {
+
+    playlistOptions.innerHTML = "";
+
+    const playlists = getPlaylists();
+
+
+    if(playlists.length === 0){
+
+        const li = document.createElement("li");
+
+        li.textContent = "No Playlist";
+
+        playlistOptions.appendChild(li);
+
+        return;
+
+    }
+
+
+    playlists.forEach((playlist) => {
+
+
+        const li = document.createElement("li");
+
+        li.textContent = playlist.name;
+
+
+        li.addEventListener("click", () => {
+
+
+            addSongToPlaylist(
+                playlist.id,
+                selectedSong
+            );
+
+
+            songMenu.classList.remove("show");
+
+
+        });
+
+
+        playlistOptions.appendChild(li);
+
+
+    });
+
+}
+
+document.addEventListener("click", (event) => {
+
+    if(!event.target.closest(".more-btn") &&
+       !event.target.closest(".song-menu")){
+
+        songMenu.classList.remove("show");
+
+    }
+
+});
 
 function renderFavorites(){
 
@@ -370,23 +427,19 @@ favoritesLink.addEventListener("click", (event) => {
 
 // play list 
 
-document.addEventListener("playlistSelected", (event) => {
+// document.addEventListener("click", (event) => {
 
-    const playlist = event.detail;
 
-    currentSongs = playlist.songs;
+//     const clickedMoreButton = event.target.closest(".more-btn");
 
-    albumContainer.innerHTML = "";
+//     const clickedMenu = event.target.closest(".song-menu");
 
-    if (playlist.songs.length === 0) {
 
-        albumContainer.innerHTML = `
-            <h2>This playlist is empty 🎵</h2>
-        `;
+//     if(!clickedMoreButton && !clickedMenu){
 
-        return;
-    }
+//         songMenu.classList.remove("show");
 
-    renderAlbums(playlist.songs);
+//     }
 
-});
+
+// });

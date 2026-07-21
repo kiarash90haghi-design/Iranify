@@ -63,3 +63,9 @@ export const savePlaylistBtn = document.getElementById("save-playlist");
 export const cancelPlaylistBtn = document.getElementById("cancel-playlist");
 
 export const playlistList = document.getElementById("playlist-list");
+
+// song menu
+
+export const songMenu = document.getElementById("song-menu");
+
+export const playlistOptions = document.getElementById("playlist-options");
