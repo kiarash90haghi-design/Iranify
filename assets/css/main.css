@@ -760,3 +760,26 @@ button{
 
     color: #ff3333;
 }
+
+/* remove song from play list BTN */
+
+.remove-song-btn{
+    position:absolute;
+    bottom:10px;
+    right:10px;
+
+    width:36px;
+    height:36px;
+
+    border-radius:50%;
+    background:#ff3b3b;
+    color:white;
+
+    opacity:0;
+
+    transition:.25s;
+}
+
+.album-card:hover .remove-song-btn{
+    opacity:1;
+}

@@ -41,23 +41,24 @@ let isRepeat = false;
 // is favorite?
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
+// for remove song's
+
+let currentPlaylist = null;
 
 
+function setActivePage(page){
 
+    homeLink.classList.remove("active");
+    favoritesLink.classList.remove("active");
+
+    page.classList.add("active");
+}
 
 async function init(){
 
     homeLink.classList.add("active");
 
     favoritesLink.classList.remove("active");
-
-    function setActivePage(page){
-
-        homeLink.classList.remove("active");
-        favoritesLink.classList.remove("active");
-
-        page.classList.add("active");
-    }
 
     const songs = await fetchSongs("eminem");
 
@@ -110,6 +111,13 @@ function renderAlbums(songs){
                     <i class="fa-solid fa-ellipsis"></i>
                 </button>
 
+                ${currentPlaylist ? `
+                
+                <button class="remove-song-btn">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+                ` : ""}
+
                 <img src="${song.artworkUrl100}">
 
             </div>
@@ -147,7 +155,24 @@ function renderAlbums(songs){
 
         const moreBtn = albumCard.querySelector(".more-btn");
 
+        const removeBtn = albumCard.querySelector(".remove-song-btn");
+
+        if(removeBtn){
+
+        removeBtn.addEventListener("click",(event)=>{
+
+            event.stopPropagation();
+
+            removeSongFromPlaylist(song);
+
+        });
+
+}
+
 moreBtn.addEventListener("click", (event) => {
+
+    event.stopPropagation();
+
     selectedSong = song;
 
     songMenu.classList.add("show");
@@ -295,6 +320,8 @@ document.addEventListener("click", (event) => {
 
 function renderFavorites(){
 
+    currentPlaylist = null;
+
     albumContainer.innerHTML = "";
 
     currentSongs = favorites;
@@ -337,6 +364,10 @@ function renderPlaylistSongs(playlist){
 function renderHome(){
 
     albumContainer.innerHTML = "";
+
+    currentPlaylist = null;
+
+    sectionTitle.innerText = "Popular Albums";
 
     renderAlbums(homeSongs);
 
@@ -458,7 +489,36 @@ document.addEventListener(
     (event)=>{
 
         const playlist = event.detail;
-        
+
+        currentPlaylist = playlist;
+
         renderPlaylistSongs(playlist);
+
     }
 );
+function removeSongFromPlaylist(song){
+    if(!currentPlaylist) return;
+
+    currentPlaylist.songs = currentPlaylist.songs.filter(
+        s => s.trackId !== song.trackId
+    );
+
+    const playlists = getPlaylists();
+
+    const index = playlists.findIndex(
+        p => p.id === currentPlaylist.id
+    );
+
+    if(index !== -1){
+
+        playlists[index] = currentPlaylist;
+    }
+
+    localStorage.setItem(
+        "playlists",
+        JSON.stringify(playlists)
+    );
+
+    renderPlaylistSongs(currentPlaylist);
+
+}
