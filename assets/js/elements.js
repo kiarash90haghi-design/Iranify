@@ -69,3 +69,7 @@ export const playlistList = document.getElementById("playlist-list");
 export const songMenu = document.getElementById("song-menu");
 
 export const playlistOptions = document.getElementById("playlist-options");
+
+// page title
+
+export const sectionTitle = document.getElementById("section-title");

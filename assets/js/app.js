@@ -10,7 +10,8 @@ import {
     favoritesLink,
     homeLink,
     songMenu,
-    playlistOptions
+    playlistOptions,
+    sectionTitle
 } from "./elements.js";
 
 import {
@@ -19,8 +20,10 @@ import {
     replaySong
 } from "./player.js";
 
-import "./playlist.js";
-import { getPlaylists, addSongToPlaylist } from "./playlist.js";
+import {
+    getPlaylists, 
+    addSongToPlaylist,
+} from "./playlist.js";
 
 let currentSongs = [];
 let currentSongIndex = 0;
@@ -37,6 +40,7 @@ let isRepeat = false;
 
 // is favorite?
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
 
 
 
@@ -308,6 +312,28 @@ function renderFavorites(){
 
 }
 
+function renderPlaylistSongs(playlist){
+
+    albumContainer.innerHTML = "";
+    sectionTitle.innerText = playlist.name;
+
+    if(playlist.songs.length === 0){
+
+        albumContainer.innerHTML = `
+            <h2>
+                This playlist is empty 🎵
+            </h2>
+        `;
+
+        return;
+    }
+    
+    currentSongs = playlist.songs;
+
+    renderAlbums(playlist.songs);
+
+}
+
 function renderHome(){
 
     albumContainer.innerHTML = "";
@@ -427,19 +453,12 @@ favoritesLink.addEventListener("click", (event) => {
 
 // play list 
 
-// document.addEventListener("click", (event) => {
+document.addEventListener(
+    "playlistSelected",
+    (event)=>{
 
-
-//     const clickedMoreButton = event.target.closest(".more-btn");
-
-//     const clickedMenu = event.target.closest(".song-menu");
-
-
-//     if(!clickedMoreButton && !clickedMenu){
-
-//         songMenu.classList.remove("show");
-
-//     }
-
-
-// });
+        const playlist = event.detail;
+        
+        renderPlaylistSongs(playlist);
+    }
+);
